@@ -11,8 +11,8 @@ def minOperations(n):
     if n != 2 and n % 2 != 0:
         counter = 3
         flag = 0
-        while (counter <= n):
-            if counter % n == 0:
+        while (counter < n):
+            if n % counter == 0:
                 flag = 1
                 break
             counter += 2
