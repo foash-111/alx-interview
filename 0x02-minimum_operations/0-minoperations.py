@@ -6,7 +6,7 @@ def minOperations(n):
     """min operation"""
     if n == 1 or n == 0:
         return 0
- 
+
     count = 0
     if n != 2 and n % 2 != 0:
         counter = 3
