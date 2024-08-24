@@ -24,8 +24,7 @@ def validUTF8(data):
             for i in data:
                 if isinstance(i, int):
                     result = i & 127
-                    result2 = i & 255
-                    if result == i or result2 == i:
+                    if result == i:
                         pass
                     else:
                         return False
