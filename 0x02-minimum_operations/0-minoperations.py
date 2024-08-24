@@ -8,8 +8,8 @@ def minOperations(n):
         return 0
 
     count = 0
+    counter = 3
     if n != 2 and n % 2 != 0:
-        counter = 3
         flag = 0
         while (counter < n):
             if n % counter == 0:
@@ -18,6 +18,11 @@ def minOperations(n):
             counter += 2
         if flag != 1:
             return 0
+    while (n % counter == 0 and n != 0):
+        count += 3
+        n = n / counter
+        if n == 1:
+            n = 0
 
     while (n % 3 == 0 and n != 0):
         count += 3
