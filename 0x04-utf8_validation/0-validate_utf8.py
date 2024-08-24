@@ -23,7 +23,7 @@ def validUTF8(data):
         if isinstance(data, list):
             for i in data:
                 if isinstance(i, int):
-                    result = i & 128
+                    result = i & 127
                     if result == i:
                         pass
                     else:
