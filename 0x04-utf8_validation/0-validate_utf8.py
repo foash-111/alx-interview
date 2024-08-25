@@ -47,4 +47,5 @@ def validUTF8(data):
             if binary_representation[:2] != '10':  # continue byte
                 return False
             remain_bytes -= 1
-    return True
+    # If we're expecting continuation bytes but didn't get them
+    return remain_bytes == 0
