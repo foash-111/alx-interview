@@ -21,6 +21,9 @@ def validUTF8(data):
 
     for i in data:
         # Convert the integer to a binary string of 8 bits
+        if isinstance(i, int) and 0 <= i <= 255:
+            return False
+
         binary_representation = format(i, '08b')
         if remain_bytes == 0:
             if binary_representation[0] == '0':
