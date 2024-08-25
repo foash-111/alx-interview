@@ -21,11 +21,11 @@ def validUTF8(data):
 
     for i in data:
         # Convert the integer to a binary string of 8 bits
-        binary_representation = format(i, '08b')
+        binary_representation = format(i, '#010b')[-8:]
 
         if remain_bytes == 0:
             if binary_representation[0] == '0':
-                continue  # 1 byte character
+                pass  # 1 byte character
             elif binary_representation[:3] == '110':
                 # num_bytes = 2
                 remain_bytes = 1
