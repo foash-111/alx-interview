@@ -96,3 +96,79 @@ For a while it seemed like that might be good enough, but programmers were compl
 
 ***********:
 Thus was invented the brilliant concept of UTF-8. UTF-8 was another system for storing your string of Unicode code points, those magic U+ numbers, in memory using 8 bit bytes. In UTF-8, every code point from 0-127 is stored in a single byte. Only code points 128 and above are stored using 2, 3, in fact, up to 6 bytes.
+
+
+
+-------------
+def valid_utf8(data):
+    # Number of bytes remaining in the current UTF-8 character
+    bytes_remaining = 0
+    
+    for num in data:
+        # Convert the integer to a binary string of 8 bits
+        bin_rep = format(num, '#010b')[-8:]
+
+        if bytes_remaining == 0:
+            # Determine the number of bytes in the UTF-8 character
+            if bin_rep[0] == '0':
+                continue  # 1-byte character
+            elif bin_rep[:3] == '110':
+                bytes_remaining = 1  # 2-byte character
+            elif bin_rep[:4] == '1110':
+                bytes_remaining = 2  # 3-byte character
+            elif bin_rep[:5] == '11110':
+                bytes_remaining = 3  # 4-byte character
+            else:
+                return False  # Invalid UTF-8 start byte
+        else:
+            # Continuation byte must start with '10'
+            if bin_rep[:2] != '10':
+                return False
+            bytes_remaining -= 1
+
+    # If we're expecting continuation bytes but didn't get them
+    return bytes_remaining == 0
+
+# Test the function with the provided list
+print(valid_utf8([72, 101, 240, 159, 146, 150]))  # True
+
+----------
+
+
+Let's break down the line bin_rep = format(num, '#010b')[-8:] to understand how it works in detail.
+
+1. format(num, '#010b')
+This part of the code converts the integer num into a binary string with some specific formatting options:
+
+format(num, 'b'):
+
+This converts the integer num to its binary representation as a string.
+For example, format(65, 'b') would give '1000001'.
+# (in '#010b'):
+
+This option tells format to include the '0b' prefix in the binary string.
+The '0b' prefix indicates that the following string is a binary number.
+For example, format(65, '#b') would give '0b1000001'.
+010 (in '#010b'):
+
+The 010 part specifies that the output string should be at least 10 characters long, including the '0b' prefix.
+If the binary representation of num is shorter than 10 characters, it will be padded with leading zeros.
+For example, format(65, '#010b') would give '0b01000001'.
+2. [-8:]
+This part of the code slices the binary string to extract only the last 8 bits:
+
+[-8:]:
+This slice extracts the last 8 characters from the binary string.
+It effectively removes the '0b' prefix and ensures that the resulting bin_rep is an 8-bit binary number, which is what you need to represent a byte.
+For example, given '0b01000001', slicing with [-8:] results in '01000001'.
+Summary
+Putting it all together:
+
+format(num, '#010b') converts num to a 10-character string representing the binary value of num with a '0b' prefix and zero-padding if necessary.
+[-8:] extracts the last 8 characters, resulting in the 8-bit binary representation of the number without the '0b' prefix.
+Example:
+For num = 65:
+
+format(65, '#010b') results in '0b01000001'.
+bin_rep = format(65, '#010b')[-8:] results in '01000001'.
+This binary string '01000001' is then used for further processing, such as checking whether it matches the expected pattern in UTF-8 encoding.
