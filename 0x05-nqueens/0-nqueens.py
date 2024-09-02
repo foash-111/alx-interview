@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """protect N queens from under attack each other"""
 
 from sys import argv
@@ -33,8 +33,6 @@ def is_safe(board, row, col):
 
 def solve_nqueens(board, row, N, positions, all_solutions):
     """check if it safe then append"""
-    if N < 4:
-        return 1
 
     # Base case: if all queens are placed, return the solution
     if row == N:
