@@ -10,10 +10,10 @@ request('https://swapi-api.alx-tools.com/api/films/' + args[2], (err, response, 
   const data = JSON.parse(body);
   // console.log(data);
 
-  let completed = 0
-  const allNames = []
+  let completed = 0;
+  const allNames = [];
 
-   data.characters.forEach((characterUrl, index) => {
+  data.characters.forEach((characterUrl, index) => {
     request(characterUrl, (err, response, body) => {
       if (err) {
         console.error(err);
@@ -24,11 +24,9 @@ request('https://swapi-api.alx-tools.com/api/films/' + args[2], (err, response, 
       allNames[index] = actorInfo.name;
       completed++;
 
-      if (completed === data.characters.length)
-      {
+      if (completed === data.characters.length) {
         allNames.forEach(name => console.log(name));
       }
     });
-
-  })
+  });
 });
