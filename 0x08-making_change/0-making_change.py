@@ -10,7 +10,7 @@ def makeChange(coins, total):
         return 0
 
     counter = 0
-
+    # Sort coins in descending order once, no need to modify original list
     sorted_coins_desc = sorted(coins, reverse=True)
 
     for coin in sorted_coins_desc:
