@@ -11,10 +11,10 @@ def makeChange(coins, total):
 
     counter = 0
 
-    coins = sorted(coins, reverse=True)
+    sorted_coins_desc = sorted(coins, reverse=True)
 
-    for coin in coins:
-        if total > coin:
+    for coin in sorted_coins_desc:
+        if total >= coin:
             counter += total // coin
             total = total % coin
 
