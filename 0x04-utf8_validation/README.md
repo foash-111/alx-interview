@@ -172,3 +172,6 @@ For num = 65:
 format(65, '#010b') results in '0b01000001'.
 bin_rep = format(65, '#010b')[-8:] results in '01000001'.
 This binary string '01000001' is then used for further processing, such as checking whether it matches the expected pattern in UTF-8 encoding.
+
+---------
+Valid Byte Check: By using format(i, '#010b')[-8:], you ensure that only the last 8 bits are considered. This correctly handles cases where integers exceed 255, as it strips the extra bits and focuses on the valid byte range.
